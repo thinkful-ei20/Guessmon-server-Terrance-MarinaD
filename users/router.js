@@ -23,7 +23,7 @@ router.post('/', (req, res, next) => {
   if(password.trim() !== password) res.status(400).send({'error' : 'Password may not have leading or trailing spaces'});
 
   //Check that password is at least 6 characters long
-  if (password.length < 6) res.status(400).send({'error' : 'Password must be at least 6 characters long'});
+  if (password.length < 10) res.status(400).send({'error' : 'Password must be at least 10 characters long'});
 
   //Hash password
   return User.hashPassword(password)
