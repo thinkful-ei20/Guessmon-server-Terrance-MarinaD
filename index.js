@@ -25,7 +25,7 @@ app.use(
 
 app.use(
   cors({
-    origin: CLIENT_ORIGIN || 'http://localhost:3000'
+    origin: CLIENT_ORIGIN
   })
 );
 
