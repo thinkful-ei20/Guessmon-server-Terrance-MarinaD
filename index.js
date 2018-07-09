@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -7,7 +9,7 @@ const localStrategy = require('./passport/local');
 const jwtStrategy = require('./passport/jwt');
 const userRouter = require('./users/router');
 
-require('dotenv').config();
+
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
 const { dbConnect } = require('./db-mongoose');
