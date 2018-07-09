@@ -5,7 +5,7 @@ const { DATABASE_URL } = require('./config');
 
 function dbConnect(url = DATABASE_URL) {
   return mongoose.connect(url)
-    .then(url => console.log(url.connections[0]))
+    .then(url => console.log(`connected to database at ${url.connection.host}`))
     .catch(err => {
       console.error('Mongoose failed to connect');
       console.error(err);
