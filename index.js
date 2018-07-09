@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const passport = require('passport');
 require('dotenv').config();
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
@@ -20,6 +21,12 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+
+//parse request body
+app.use(express.json());
+
+//Passport strategy config
+
 
 function runServer(port = PORT) {
   const server = app
