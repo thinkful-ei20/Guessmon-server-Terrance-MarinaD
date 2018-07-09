@@ -1,7 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+
 const passport = require('passport');
+const localStrategy = require('./passport/local');
+const jwtStrategy = require('./passport/jwt');
+const userRouter = require('./users/router');
+
 require('dotenv').config();
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
@@ -26,7 +31,11 @@ app.use(
 app.use(express.json());
 
 //Passport strategy config
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
+// Mount router
+app.use('/api/users', userRouter);
 
 function runServer(port = PORT) {
   const server = app
