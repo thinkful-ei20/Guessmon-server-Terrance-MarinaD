@@ -1,6 +1,9 @@
 const express = require('express');
 const User = require('../users/models');
 const {_Node} = require('../linkedlist');
+const passport = require('passport');
+
+const jwtAuth = passport.authenticate('jwt', {session: false, failWithError: true});
 
 const router = express.Router();
 const insertItem = (list, item, position) => {
@@ -19,7 +22,7 @@ const insertItem = (list, item, position) => {
   return;
 };
 
-router.get('/:userId', (req, res, next)=>{
+router.get('/:userId', jwtAuth, (req, res, next)=>{
   const {userId} = req.params;
   let question;
   return User.findById(userId)
@@ -40,7 +43,7 @@ router.get('/:userId', (req, res, next)=>{
 });
 
 
-router.post('/:userId', (req, res, next)=>{
+router.post('/:userId', jwtAuth, (req, res, next)=>{
   const {question, userAnswer} = req.body;
   const {userId} = req.params;
   let isCorrect;
