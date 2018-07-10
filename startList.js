@@ -30,7 +30,6 @@ const bulbasaur =
   'm': 1
 };
 
-
 const defaultList = new LinkedList();
 defaultList.head = head;
 defaultList.insertAt(squirtle, 1);
