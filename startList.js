@@ -1,11 +1,5 @@
-//default list order for all new users
-// here is where all questions will live
 
-// value : {
-//   silluette : 'www.com'
-//   filledIn: 'www.com'
-//   answer: 'Pikachu'
-//   correct: 4
-//   total: 11
-//   m: 1
-// }
+// grab questions by id
+// insert each individually
+// export list
+
