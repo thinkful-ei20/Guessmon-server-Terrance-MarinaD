@@ -3,8 +3,17 @@ const User = require('./models');
 
 const router = express.Router();
 
-router.get()
-    // call removeFirst method
+router.get('/:userId', (req, res, next)=>{
+  const {userId} = req.params;
+
+  return User.findById({_id : userId})
+    .then(result => {
+      if (result){
+        console.log(result);
+      }
+    });
+});
+// call removeFirst method
 /*
 router.post() -> an answer to the question
    validate the answer

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const Schema = mongoose.Schema;
+const {_Node} = require('../linkedlist');
 
 const userSchema = new Schema({
   username: {
@@ -18,7 +19,7 @@ const userSchema = new Schema({
     unique: true
   },
   questionList: {
-    //placeholder text
+    type: Schema.Types.Mixed
   }
 });
 

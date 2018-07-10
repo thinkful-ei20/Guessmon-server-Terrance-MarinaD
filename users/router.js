@@ -2,6 +2,10 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('./models');
+const defaultList = require('../startList');
+const userList = {
+  questionList : defaultList
+};
 
 const { JWT_SECRET, JWT_EXPIRY } = require('../config');
 
@@ -31,9 +35,15 @@ router.post('/', (req, res, next) => {
       const newUser = {
         username,
         email,
+        questionList: defaultList,
         password: digest
       };
       return User.create(newUser);
+    })
+    .then( result => {
+      return User.findById({_id : result.id}, (err, user) => {
+        user.questionList = defaultList;
+      });
     })
     .then(result => {
       return res.status(201).location(`/api/users/${result.id}`).json(result);

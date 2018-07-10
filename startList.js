@@ -34,6 +34,5 @@ const defaultList = new LinkedList();
 defaultList.head = head;
 defaultList.insertAt(squirtle, 1);
 defaultList.insertAt(bulbasaur, 2);
-console.log(JSON.stringify(defaultList,null,2));
 
 module.exports = defaultList;
