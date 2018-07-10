@@ -1,7 +1,11 @@
+const express = require('express');
+const User = require('./models');
+
+const router = express.Router();
+
+router.get()
+    // call removeFirst method
 /*
-
-router.get() -> get the first item in linked list
-
 router.post() -> an answer to the question
    validate the answer
 
@@ -12,3 +16,5 @@ router.post() -> an answer to the question
     .send({questionList: newLinkedList})
 
 */
+
+module.exports = router;

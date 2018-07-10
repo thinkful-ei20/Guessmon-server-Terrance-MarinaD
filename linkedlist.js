@@ -1,3 +1,3 @@
 //linked list class & node class
-//methods: insertAt() & changeHead()
+//methods: insertAt() & changeHead() // removeFirst()
 
