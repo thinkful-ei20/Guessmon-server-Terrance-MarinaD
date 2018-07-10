@@ -8,7 +8,7 @@ const passport = require('passport');
 const localStrategy = require('./passport/local');
 const jwtStrategy = require('./passport/jwt');
 const userRouter = require('./users/router');
-
+const questionRouter = require('./questions/router');
 
 
 const { PORT, CLIENT_ORIGIN } = require('./config');
@@ -38,6 +38,7 @@ passport.use(jwtStrategy);
 
 // Mount router
 app.use('/api/users', userRouter);
+app.use('/api/questions', questionRouter);
 
 function runServer(port = PORT) {
   const server = app

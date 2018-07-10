@@ -1,17 +1,21 @@
 const express = require('express');
-const User = require('./models');
+const User = require('../users/models');
 
 const router = express.Router();
 
 router.get('/:userId', (req, res, next)=>{
   const {userId} = req.params;
-
-  return User.findById({_id : userId})
+  let question;
+  return User.findById(userId)
     .then(result => {
       if (result){
-        console.log(result);
+        question = result.questionList.head.value;
       }
-    });
+      const newList = result.questionList;
+      newList.head = newList.head.next;
+      res.send(question);
+    })
+    .catch(err => res.status(404).send(err));
 });
 // call removeFirst method
 /*
