@@ -1,8 +1,8 @@
 const {LinkedList, _Node} = require('./linkedlist');
 
 const pikachu = {
-  'silhouette': 'https://vignette.wikia.nocookie.net/joke-battles/images/0/0d/Pokemon-Pikachu-Silhouette-Stencil-thumb.jpg/revision/latest?cb=20180210155820',
-  'filledIn': 'https://cdn.bulbagarden.net/upload/thumb/0/0d/025Pikachu.png/250px-025Pikachu.png',
+  'silhouette': 'https://image.ibb.co/eDuLj8/pikachu_sil.png',
+  'filledIn': 'https://image.ibb.co/bPvRP8/pikachu.png',
   'answer': 'pikachu',
   'correct': 0,
   'total': 0,
@@ -114,11 +114,5 @@ defaultList.insertAt(sandslash, 7);
 defaultList.insertAt(scyther, 8);
 defaultList.insertAt(voltorb, 2);
 defaultList.insertAt(weepinbell, 9);
-
-
-
-
-
-
 
 module.exports = defaultList;
