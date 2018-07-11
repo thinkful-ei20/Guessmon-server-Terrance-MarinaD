@@ -6,6 +6,7 @@ const passport = require('passport');
 const jwtAuth = passport.authenticate('jwt', {session: false, failWithError: true});
 
 const router = express.Router();
+
 const insertItem = (list, item, position) => {
   let currNode = list.head;
   let counter = 0;
@@ -42,8 +43,8 @@ router.get('/:userId', jwtAuth, (req, res, next)=>{
     .catch(err => res.status(404).send({error: err}));
 });
 
-
 router.post('/:userId', jwtAuth, (req, res, next)=>{
+  console.log(req.body);
   const {question, userAnswer} = req.body;
   const {userId} = req.params;
   let isCorrect;
