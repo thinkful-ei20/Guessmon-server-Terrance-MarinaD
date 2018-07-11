@@ -25,26 +25,25 @@ const insertItem = (list, item, position) => {
 
 router.get('/:userId', jwtAuth, (req, res, next)=>{
   const {userId} = req.params;
-  let question;
+  // let question;
   return User.findById(userId)
     .then(result => {
       if (result){
-        question = result.questionList.head.value;
+        res.send(result.questionList.head.value);
       }
-      const newList = result.questionList;
-      newList.head = newList.head.next;
-      return User.findByIdAndUpdate(
-        userId,
-        {questionList : newList},{new : true});
+      // const newList = result.questionList;
+      // newList.head = newList.head.next;
+      // return User.findByIdAndUpdate(
+      //   userId,
+      //   {questionList : newList},{new : true});
     })
-    .then(() => {
-      res.send(question);
-    })
+    // .then(() => {
+    //   res.send(question);
+    // })
     .catch(err => res.status(404).send({error: err}));
 });
 
 router.post('/:userId', jwtAuth, (req, res, next)=>{
-  console.log(req.body);
   const {question, userAnswer} = req.body;
   const {userId} = req.params;
   let isCorrect;
@@ -62,7 +61,8 @@ router.post('/:userId', jwtAuth, (req, res, next)=>{
   User.findById(userId)
     .then(result => {
       const newList = result.questionList;
-      insertItem(newList, question, question.m);
+      newList.head = newList.head.next;
+      insertItem(newList, question, question.m);      
 
       return User.findByIdAndUpdate(
         userId,
