@@ -54,13 +54,16 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/login', localAuth, (req, res, next) => {
+  console.log('made it into login router');
   const authToken = createAuthToken(req.user);
-  res.json({authToken});
+  console.log(req.user);
+  res.status(200).json({authToken});
 });
 
 router.post('/refresh', jwtAuth, (req, res, next) => {
+  console.log('hitting refresh endpoint with', req.user);
   const authToken = createAuthToken(req.user);
-  res.json({authToken});
+  res.status(200).json({authToken});
 });
 
 function createAuthToken (user) {
