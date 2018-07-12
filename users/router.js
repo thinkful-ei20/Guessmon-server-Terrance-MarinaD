@@ -50,6 +50,8 @@ router.post('/', (req, res, next) => {
     })
     .catch(err => {
       if (err.code === 11000) res.status(400).json({'error':'The username or email already exists.'});
+      // console.error(err);
+      // res.sendStatus(500);
     });
 });
 

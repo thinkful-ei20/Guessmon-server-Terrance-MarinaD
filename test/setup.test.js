@@ -180,7 +180,7 @@ describe('User Endpoints', function () {
 
 // Test Question Endpoints
 describe('Question Endpoints', function () {
-  describe.only('GET /api/questions/userId', function () {
+  describe('GET /api/questions/userId', function () {
     it('should return a question given valid credentials', function () {
       let res;
       return chai.request(app)
@@ -202,9 +202,27 @@ describe('Question Endpoints', function () {
         });
     });
 
-
   });
   describe('POST /api/questions/userID', function () {
-
+    it('should retun a true result if given correct credentials and answer', function(){
+      return chai.request(app)
+        .post(`/api/questions/${userId}`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          question: {
+            silhouette: 'https://image.ibb.co/eDuLj8/pikachu_sil.png',
+            filledIn: 'https://image.ibb.co/bPvRP8/pikachu.png',
+            answer: 'pikachu',
+            correct: 0,
+            total: 0,
+            m: 1
+          },
+          userAnswer : 'pikachu'
+        })
+        .then(res => {
+          expect(res).to.have.status(200);
+          expect(res.body.result).to.be.equal(true);
+        });
+    });
   });
 });
