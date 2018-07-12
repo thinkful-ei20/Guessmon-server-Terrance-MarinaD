@@ -49,19 +49,16 @@ router.post('/', (req, res, next) => {
       return res.status(201).location(`/api/users/${result.id}`).json(result);
     })
     .catch(err => {
-      if (err.code === 11000) res.status(400).send({'error':'The username or email already exists.'});
+      if (err.code === 11000) res.status(400).json({'error':'The username or email already exists.'});
     });
 });
 
 router.post('/login', localAuth, (req, res, next) => {
-  console.log('made it into login router');
   const authToken = createAuthToken(req.user);
-  console.log(req.user);
   res.status(200).json({authToken});
 });
 
 router.post('/refresh', jwtAuth, (req, res, next) => {
-  console.log('hitting refresh endpoint with', req.user);
   const authToken = createAuthToken(req.user);
   res.status(200).json({authToken});
 });

@@ -2,21 +2,25 @@ require('dotenv').config();
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
-const { TEST_DATABASE_URL } = require('../config');
+const { TEST_DATABASE_URL, JWT_SECRET, JWT_EXPIRY } = require('../config');
 const { dbConnect, dbDisconnect } = require('../db-mongoose');
 const User = require('../users/models');
 const defaultList = require('../startList');
 const { app } = require('../index');
+const jwt = require('jsonwebtoken');
 
 // Set NODE_ENV to `test` to disable http layer logs
 // You can do this in the command line, but this is cross-platform
 process.env.NODE_ENV = 'test';
 
 // Clear the console before each run
-process.stdout.write('\x1Bc\n');
+// process.stdout.write('\x1Bc\n');
 
 const expect = chai.expect;
 chai.use(chaiHttp);
+
+let token;
+let userId;
 
 before(function () {
   dbConnect(TEST_DATABASE_URL).then(
@@ -30,7 +34,14 @@ beforeEach(function () {
     password: '$2a$10$nfuXnzlT3tpycpL3dbV29eXduOg6IStnGt0KMLFV8h1sY15A0Rgle',
     email: 'test1234@testing.com',
     questionList: defaultList
-  }).then(data => console.log('created user: ', data.username));
+  }).then(user => {
+    userId = user.id;
+
+    token = jwt.sign({ user }, JWT_SECRET, {
+      subject: user.username,
+      expiresIn: JWT_EXPIRY
+    });
+  });
 });
 
 afterEach(function () {
@@ -137,7 +148,6 @@ describe('User Endpoints', function () {
         .post('/api/users/login')
         .send({ username: 'testuser10', password: 'password10' })
         .then(res => {
-          console.log('the result of logging in is, ' + JSON.stringify(res.body));
           expect(res).to.have.status(200);
           expect(res.body.authToken).to.exist;
         });
@@ -155,19 +165,46 @@ describe('User Endpoints', function () {
   describe('POST /api/users/refresh - get a new token', function () {
     it('should return a new token given a valid existing one', function () {
       const user = { username: 'testuser10', password: 'password10' };
-      chai.request(app)
-        .post('/api/users/login')
+
+      return chai.request(app)
+        .post('/api/users/refresh')
         .send(user)
+        .set('Authorization', `Bearer ${token}`)
         .then(res => {
-          const token = res.body.authToken;
-          console.log(token);
-          return chai.request(app)
-            .post('/api/users/refresh')
-            .send(user)
-            .set('Authorization', `Bearer ${token}`);
-        }).then(res => {
           expect(res).to.have.status(200);
         });
     });
+  });
+});
+
+
+// Test Question Endpoints
+describe('Question Endpoints', function () {
+  describe.only('GET /api/questions/userId', function () {
+    it('should return a question given valid credentials', function () {
+      let res;
+      return chai.request(app)
+        .get(`/api/questions/${userId}`)
+        .set('Authorization', `Bearer ${token}`)
+        .then(_res => {
+          res = _res;
+          expect(res).to.have.status(200);
+          return User.findById(userId);
+        })
+        .then(data => {
+          const question = data.questionList.head.value;
+          expect(question.silhouette).to.be.equal(res.body.silhouette);
+          expect(question.filledIn).to.be.equal(res.body.filledIn);
+          expect(question.answer).to.be.equal(res.body.answer);
+          expect(question.m).to.be.equal(res.body.m);
+          expect(question.total).to.be.equal(res.body.total);
+          expect(question.correct).to.be.equal(res.body.correct);
+        });
+    });
+
+
+  });
+  describe('POST /api/questions/userID', function () {
+
   });
 });

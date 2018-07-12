@@ -25,21 +25,12 @@ const insertItem = (list, item, position) => {
 
 router.get('/:userId', jwtAuth, (req, res, next)=>{
   const {userId} = req.params;
-  // let question;
   return User.findById(userId)
     .then(result => {
       if (result){
         res.send(result.questionList.head.value);
       }
-      // const newList = result.questionList;
-      // newList.head = newList.head.next;
-      // return User.findByIdAndUpdate(
-      //   userId,
-      //   {questionList : newList},{new : true});
     })
-    // .then(() => {
-    //   res.send(question);
-    // })
     .catch(err => res.status(404).send({error: err}));
 });
 
