@@ -1,4 +1,4 @@
-Chronicle - A Writer's Aide
+Guessmon - A Pokemon Guessing Game
 ======
 **Live App** : [https://young-castle-32482.herokuapp.com](https://young-castle-32482.herokuapp.com)
 
