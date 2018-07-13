@@ -22,8 +22,15 @@ In all users are able to:
 Screenshots
 ------
 
-### Login
-![Chronicle Login page](https://i.imgur.com/HbEwyu5.jpg "Login")
+### Card
+![Card to be guessed](https://image.ibb.co/niJgwo/ss_sil.jpg "Unanswered Card")
+
+## Card -Correct!
+![Correct Answered](https://image.ibb.co/chDs2T/ss_correct.jpg "Correct Card")
+
+## Card -Wrong!
+![Incorrect Answered](https://image.ibb.co/imdQNT/ss_wrong.jpg "Incorrect Card")
+
 
 Tech Stack
 ------
