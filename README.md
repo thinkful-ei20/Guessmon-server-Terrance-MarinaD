@@ -1,6 +1,6 @@
 Guessmon - A Pokemon Guessing Game
 ======
-**Live App** : [https://young-castle-32482.herokuapp.com](https://young-castle-32482.herokuapp.com)
+**Live App** : [https://guessmon.herokuapp.com/](https://guessmon.herokuapp.com/)
 
 **Server** : [https://guessmon-server.herokuapp.com/](https://guessmon-server.herokuapp.com/)
 
